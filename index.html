@@ -449,44 +449,98 @@
 
                     <div class="answer-content">
                         <div class="answer-text">
-                            <p>
-                                Moje zkušenosti spojují fyzickou
-                                infrastrukturu, operační systémy, cloudové
-                                prostředí a aplikační vrstvu. V produkčním
-                                provozu jsem pracoval se servery Ubuntu,
-                                cloudovými instancemi v OpenStacku,
-                                distribuovaným úložištěm Ceph a centrální
-                                konfigurací pomocí Puppetu a Foremanu.
-                            </p>
+    <p>
+        Moje praktické zkušenosti propojují provoz Linuxových serverů,
+        cloudovou infrastrukturu, Kubernetes a vývoj nástrojů, které
+        usnadňují každodenní správu prostředí.
+    </p>
 
-                            <p>
-                                V Kubernetes jsem získal praktickou zkušenost
-                                během diplomové práce. Na virtuálním serveru
-                                s Ubuntu jsem vytvořil MicroK8s cluster,
-                                nainstaloval Argo CD, propojil jej
-                                s GitHub repozitářem a nasadil demonstrační
-                                aplikaci pomocí Helm chartu.
-                            </p>
+    <p>
+        V produkčním prostředí jsem pracoval s Ubuntu servery,
+        virtuálními instancemi v OpenStacku, distribuovaným úložištěm
+        Ceph a centrální správou konfigurace pomocí Puppetu a Foremanu.
+        Kontroloval jsem stav serverů a služeb, reagoval na monitoring,
+        analyzoval logy a ověřoval stav infrastruktury po provedeném zásahu.
+    </p>
 
-                            <p>
-                                V clusteru jsem pracoval s životním cyklem
-                                aplikačních objektů, sledoval jejich stav,
-                                počet replik, logy a události. Prakticky jsem
-                                ověřil rozdíl mezi požadovaným stavem uloženým
-                                v Gitu a skutečným stavem běžícího prostředí.
-                            </p>
+    <p>
+        Rozsáhlejší praktickou zkušenost s Kubernetes jsem získal během
+        přípravy diplomové práce. Na Ubuntu serveru jsem vytvořil
+        MicroK8s cluster, nainstaloval Argo CD, propojil jej s GitHub
+        repozitářem a nasadil demonstrační aplikaci pomocí Helm chartu.
+        Pracoval jsem s Deploymenty, Pody, Services, ReplicaSety,
+        namespaces, YAML manifesty, logy a událostmi v clusteru.
+    </p>
 
-                            <p>
-                                Další zkušenost s Kubernetes vychází
-                                z projektu TeamCity Cloud Remote Shell
-                                Executor. Vytvořil jsem backendovou službu,
-                                která po přijetí uživatelské úlohy
-                                automaticky vytvoří dočasný Kubernetes Pod,
-                                spustí v něm shellový skript, sleduje průběh
-                                úlohy, načte výstup a po dokončení umožní
-                                uvolnit použité prostředky.
-                            </p>
-                        </div>
+    <p>
+        Prakticky jsem ověřoval také princip GitOps. Požadovaný stav
+        aplikace byl uložen v Git repozitáři a Argo CD automaticky
+        porovnávalo tento stav se skutečným stavem clusteru. Při změně
+        počtu replik nebo při ruční odchylce v clusteru dokázalo změnu
+        detekovat, provést synchronizaci a pomocí self-healingu obnovit
+        správný počet běžících Podů.
+    </p>
+
+    <p>
+        Pro pohodlnější kontrolu clusteru jsem nainstaloval a používal
+        také K9s. Pomocí tohoto nástroje jsem sledoval stav Podů,
+        jejich restarty, IP adresy, přiřazení k nodům a jednotlivé
+        provozní stavy, například Running, Pending, Completed nebo Error.
+        K9s mi umožnil rychleji se orientovat v clusteru bez nutnosti
+        opakovaně zadávat jednotlivé příkazy kubectl.
+    </p>
+
+    <p>
+        Při instalaci K9s jsem narazil také na praktický problém.
+        Verze nainstalovaná prostřednictvím Snapu nebyla správně dostupná
+        v shellu, proto jsem nefunkční instalaci odstranil, stáhl aktuální
+        binární verzi z GitHub releases, rozbalil ji a umístil do systémové
+        cesty. Následně jsem ověřil verzi aplikace a připojení ke kontextu
+        MicroK8s.
+    </p>
+
+    <p>
+        Další zkušenost vychází z mého vlastního projektu
+        TeamCity Cloud Remote Shell Executor. Jde o demonstrační aplikaci
+        inspirovanou principem dočasných build agentů. Vytvořil jsem
+        backend v Kotlinu a Spring Bootu, který komunikuje s Kubernetes
+        prostřednictvím klientské knihovny Fabric8.
+    </p>
+
+    <p>
+        Uživatel zadá prostřednictvím webového rozhraní identifikátor
+        úlohy, požadované CPU a shellový skript. Backend vstup ověří
+        a následně v Kubernetes vytvoří samostatný dočasný Executor Pod.
+        Aplikace potom umožňuje sledovat stav úlohy, zobrazit její logy
+        a ukončit nebo odstranit Pod po dokončení práce.
+    </p>
+
+    <p>
+        Ve webovém rozhraní jsem vytvořil také přehled běžících
+        a dokončených úloh. Kubernetes stavy jsem mapoval na jednodušší
+        uživatelské stavy, například Queued, Failed nebo Finished.
+        Díky tomu není pro základní správu úloh nutné pracovat přímo
+        s příkazovou řádkou nebo Kubernetes API.
+    </p>
+
+    <p>
+        Projekt mi pomohl prakticky pochopit životní cyklus Podu,
+        vytváření zdrojů přes Kubernetes API, přidělování prostředků,
+        čtení logů, zpracování stavů a odstraňování dočasných workloadů.
+        Současně jsem si ověřil propojení webové aplikace, backendové
+        služby a Kubernetes clusteru.
+    </p>
+
+    <p>
+        Znalosti Kubernetes si dále systematicky rozšiřuji studiem
+        odborné literatury, například knihy Kubernetes: Up &amp; Running.
+        Zaměřuji se zejména na fungování Services, ClusterIP,
+        kube-proxy, síťové komunikace mezi Pody, scheduling,
+        health checks a provoz aplikací v clusteru. Teoretické principy
+        se snažím vždy ověřit také prakticky ve vlastním laboratorním
+        prostředí.
+    </p>
+</div>
 
                         <div class="media-grid media-grid-two">
                             <figure class="media-card">
