@@ -2006,7 +2006,7 @@ html[data-theme="dark"] .technical-note code {
     background:
         linear-gradient(
             135deg,
-            var(--surface-alt),
+            var(--surface-soft),
             var(--surface)
         );
     border: 1px solid var(--border);
