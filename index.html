@@ -496,12 +496,13 @@ journalctl -p err -b</code></pre>
 </details>
 
               <!-- Question 3 -->
+<!-- Question 3 -->
 <details class="answer-card" id="q3">
     <summary>
         <span class="question-number">03</span>
 
         <span class="question-title">
-            Provoz služeb, monitoring a řešení incidentů
+            Provoz služeb, monitoring a analýza logů
         </span>
 
         <span class="question-icon" aria-hidden="true">+</span>
@@ -510,142 +511,174 @@ journalctl -p err -b</code></pre>
     <div class="answer-content">
         <div class="answer-text">
             <p>
-                Monitoring a prvotní diagnostika patřily mezi hlavní
-                části mé práce v Cloudinfrastacku. Prostřednictvím
-                monitorovacího prostředí Sensu a Uchiwa jsem reagoval
-                na upozornění týkající se nedostupných serverů,
-                zastavených služeb, zaplněných disků, problémů
-                s databázemi, certifikáty nebo centrální konfigurací.
+                Ano, s provozem služeb, monitoringem a analýzou logů
+                mám praktickou pracovní zkušenost. V Cloudinfrastacku
+                jsem sledoval stav Linuxových serverů a souvisejících
+                cloudových služeb prostřednictvím monitorovacího
+                prostředí Sensu a Uchiwa.
             </p>
 
             <p>
-                Po přijetí alertu jsem nejprve ověřil, zda jde
-                o skutečný incident, krátkodobý výkyv nebo následek
-                plánované změny. Následně jsem zkontroloval dostupnost
-                serveru, využití systémových prostředků, stav služby,
-                otevřené porty a související systémové nebo aplikační
-                logy.
+                Monitoring upozorňoval například na nedostupné servery,
+                zastavené systémové služby, zaplněné disky, problémy
+                s databázovou replikací, síťovou komunikací,
+                certifikáty nebo neúspěšnou aplikací centrální
+                konfigurace.
             </p>
 
             <p>
-                Při problému s diskovým prostorem jsem pomocí
-                <code>df</code> a <code>du</code> nejprve zjistil,
-                který souborový systém nebo adresář je zaplněný.
-                Potom jsem dohledal rychle rostoucí logy, dočasné
-                soubory nebo starší data. Před odstraněním dat jsem
-                vždy ověřil jejich význam a případnou retenční
-                politiku, aby zásah nezpůsobil další problém.
+                Po přijetí upozornění jsem nejprve ověřil, zda jde
+                o skutečný incident, krátkodobý výkyv nebo očekávaný
+                důsledek plánované změny. Následně jsem se připojil
+                na server přes SSH a zkontroloval jeho dostupnost,
+                zatížení, využití paměti, diskový prostor, běžící
+                procesy a stav příslušné služby.
             </p>
 
             <p>
-                U nefunkční služby nebo démona jsem kontroloval její
-                stav v systemd, poslední chybové záznamy a dostupnost
-                portu. Pokud byl restart bezpečný a odpovídal
-                provoznímu postupu, službu jsem restartoval
-                a následně ověřil nejen stav Active, ale také její
-                skutečnou dostupnost a návrat monitoringu do normálu.
-            </p>
-
-            <p>
-                V prostředí spravovaném Puppetem jsem kontroloval
-                průběh Puppet agenta, chyby při aplikování konfigurace
-                a stav SSL certifikátů. Setkal jsem se například
-                se situacemi, kdy agent nemohl navázat komunikaci
-                s Puppet serverem nebo kdy bylo potřeba odstranit
-                neplatný certifikát a vytvořit nový.
+                Při analýze jsem kombinoval informace z monitoringu
+                se systémovými a aplikačními logy. Kontroloval jsem,
+                kdy problém vznikl, zda mu předcházela změna
+                konfigurace a jestli chyba ovlivnila také navazující
+                služby nebo další servery.
             </p>
         </div>
 
-        <!-- Operational command examples -->
+        <!-- Basic incident diagnostics -->
         <div class="command-grid">
             <article class="command-card">
-                <h3>Zaplněný disk a rostoucí logy</h3>
+                <h3>Celkový stav serveru</h3>
 
-                <pre><code>df -hT
-du -xhd1 /var | sort -h
-du -xhd1 /var/log | sort -h
-find /var/log -type f -size +500M -ls
-journalctl --disk-usage
-logrotate -d /etc/logrotate.conf</code></pre>
+                <pre><code>uptime
+top
+free -h
+df -hT
+ps aux --sort=-%cpu | head
+ps aux --sort=-%mem | head</code></pre>
 
                 <p>
-                    Nejprve jsem určil zaplněný filesystem, potom
-                    dohledal největší adresáře a soubory. Konfiguraci
-                    logrotate bylo možné ověřit nejprve v testovacím
-                    režimu bez okamžitého odstranění dat.
+                    Těmito příkazy jsem ověřoval zatížení serveru,
+                    dostupnou paměť, diskový prostor a procesy
+                    s nejvyšší spotřebou prostředků.
                 </p>
             </article>
 
             <article class="command-card">
-                <h3>Služby a démoni</h3>
+                <h3>Stav služby a logy</h3>
 
                 <pre><code>systemctl status nginx
 systemctl --failed
 journalctl -u nginx -n 100
 journalctl -u nginx --since "30 min ago"
+journalctl -p err -b</code></pre>
+
+                <p>
+                    U nefunkční služby jsem kontroloval její stav,
+                    poslední chybové záznamy a další neúspěšné
+                    systemd jednotky.
+                </p>
+            </article>
+
+            <article class="command-card">
+                <h3>Zaplněný disk</h3>
+
+                <pre><code>df -hT
+du -xhd1 /var | sort -h
+du -xhd1 /var/log | sort -h
+find /var/log -type f -size +500M -ls
+journalctl --disk-usage</code></pre>
+
+                <p>
+                    Nejprve jsem určil zaplněný filesystem a potom
+                    dohledal adresář nebo log, který spotřebovával
+                    nejvíce prostoru.
+                </p>
+            </article>
+
+            <article class="command-card">
+                <h3>Síť a dostupnost aplikace</h3>
+
+                <pre><code>ping &lt;host&gt;
 ss -lntup
 curl -I http://127.0.0.1
-sudo systemctl restart nginx</code></pre>
+curl -vk https://&lt;host&gt;
+ip addr
+ip route</code></pre>
 
                 <p>
-                    Po restartu jsem ověřil proces, naslouchající port,
-                    lokální odpověď služby a stav v monitorovacím
-                    systému.
-                </p>
-            </article>
-
-            <article class="command-card">
-                <h3>Puppet a SSL certifikáty</h3>
-
-                <pre><code>sudo puppet agent -t
-sudo puppet agent --test --debug
-sudo puppet cert list --all
-sudo puppet cert clean &lt;hostname&gt;</code></pre>
-
-                <p>
-                    Puppet agent jsem spouštěl ručně při kontrole
-                    konfigurace. Pokud byl certifikát hostu neplatný,
-                    bylo možné jej na Puppet serveru vyčistit
-                    a následně nechat host vytvořit nový požadavek.
-                </p>
-            </article>
-
-            <article class="command-card">
-                <h3>Cloudové a databázové komponenty</h3>
-
-                <pre><code>openstack server list
-openstack server show &lt;server-id&gt;
-ceph -s
-ceph osd tree
-mysql -e "SHOW SLAVE STATUS\G"</code></pre>
-
-                <p>
-                    Při širším incidentu jsem ověřoval také stav
-                    virtuálního serveru, Ceph clusteru nebo databázové
-                    replikace, protože chyba služby mohla být pouze
-                    důsledkem problému v jiné vrstvě infrastruktury.
+                    Ověřoval jsem síťovou dostupnost, naslouchající
+                    porty, lokální odpověď aplikace a základní
+                    konfiguraci síťových rozhraní.
                 </p>
             </article>
         </div>
 
         <div class="answer-text">
             <p>
-                Důležitou částí řešení incidentu byla také komunikace
-                se zákazníkem. Zákazníkovi nebo kolegům jsem předal,
-                co bylo nedostupné, jaké kontroly jsem provedl,
-                zda byl nalezen pravděpodobný důvod a jaký byl
-                výsledek zásahu. Pokud problém vyžadoval hlubší
-                oprávnění nebo změnu s vyšším rizikem, připravil jsem
-                potřebné technické informace a incident eskaloval
-                zkušenějšímu administrátorovi.
+                Mezi častější situace patřil zaplněný disk nebo adresář
+                s logy, zastavený démon, nedostupný server, problém
+                se síťovým rozhraním, chyba certifikátu nebo neúspěšná
+                konfigurace spravovaná prostřednictvím Puppetu.
             </p>
 
             <p>
-                Incident jsem považoval za vyřešený až po ověření
-                služby z několika úrovní: stav procesu, systémové logy,
-                síťový port, odpověď aplikace a potvrzení monitoringu.
-                Tím jsem omezil situace, kdy služba sice formálně
-                běžela, ale pro zákazníka stále nebyla dostupná.
+                Pokud bylo bezpečné provést restart služby, nejprve
+                jsem zaznamenal její stav a chyby, následně jsem službu
+                restartoval a ověřil nejen stav Active, ale také
+                naslouchající port, odpověď aplikace a návrat
+                monitoringu do normálního stavu.
+            </p>
+
+            <p>
+                Při širším incidentu jsem kontroloval také související
+                vrstvy infrastruktury, například stav virtuálního
+                serveru v OpenStacku, stav úložiště Ceph nebo databázové
+                replikace.
+            </p>
+        </div>
+
+        <div class="command-grid">
+            <article class="command-card">
+                <h3>Cloud a úložiště</h3>
+
+                <pre><code>openstack server list
+openstack server show &lt;server-id&gt;
+ceph -s
+ceph osd tree</code></pre>
+
+                <p>
+                    Kontrola stavu virtuální instance a distribuovaného
+                    úložiště pomáhala určit, zda chyba vznikla přímo
+                    v aplikaci nebo v nižší vrstvě infrastruktury.
+                </p>
+            </article>
+
+            <article class="command-card">
+                <h3>Databázová replikace</h3>
+
+                <pre><code>mysql -e "SHOW SLAVE STATUS\G"</code></pre>
+
+                <p>
+                    U databázových upozornění jsem kontroloval stav
+                    replikace, poslední chybu a hodnoty ukazující
+                    případné zpoždění repliky.
+                </p>
+            </article>
+        </div>
+
+        <div class="answer-text">
+            <p>
+                Součástí řešení byla také komunikace se zákazníky
+                a kolegy. Prostřednictvím chatu jsem v češtině
+                nebo angličtině upřesnil projevy problému, informoval
+                o provedených kontrolách a po zásahu předal výsledek.
+            </p>
+
+            <p>
+                Pokud problém vyžadoval vyšší oprávnění nebo rizikový
+                zásah, připravil jsem technické informace, relevantní
+                výpisy z logů a incident předal zkušenějšímu
+                administrátorovi.
             </p>
         </div>
 
@@ -653,37 +686,45 @@ mysql -e "SHOW SLAVE STATUS\G"</code></pre>
         <div class="process-flow">
             <article>
                 <span>1</span>
+
                 <h3>Alert</h3>
+
                 <p>
-                    Ověření skutečnosti incidentu, jeho času
-                    a možného dopadu na zákaznické prostředí.
+                    Ověření, zda jde o skutečný incident
+                    a jaký může mít dopad.
                 </p>
             </article>
 
             <article>
                 <span>2</span>
+
                 <h3>Diagnostika</h3>
+
                 <p>
-                    Kontrola prostředků, služby, logů, sítě,
-                    certifikátů a souvisejících komponent.
+                    Kontrola serveru, služby, prostředků,
+                    sítě a souvisejících logů.
                 </p>
             </article>
 
             <article>
                 <span>3</span>
+
                 <h3>Zásah</h3>
+
                 <p>
-                    Bezpečné provedení opravy, restartu,
-                    aplikování konfigurace nebo eskalace.
+                    Bezpečný restart, oprava konfigurace
+                    nebo předání problému k eskalaci.
                 </p>
             </article>
 
             <article>
                 <span>4</span>
+
                 <h3>Ověření</h3>
+
                 <p>
-                    Kontrola služby, portu, logů a návratu
-                    monitoringu do normálního stavu.
+                    Kontrola portu, odpovědi služby,
+                    logů a monitoringu.
                 </p>
             </article>
         </div>
