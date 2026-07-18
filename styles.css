@@ -1984,3 +1984,45 @@ html[data-theme="dark"] .answer-text code {
 .answer-card {
     overflow-anchor: none;
 }
+/* Technical version note */
+.technical-note {
+    margin-top: 32px;
+    padding: 24px 26px;
+    background: var(--green-soft);
+    border-left: 5px solid var(--green);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.technical-note h3 {
+    margin-bottom: 9px;
+    font-size: 1rem;
+}
+
+.technical-note p {
+    margin: 0;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+}
+
+.technical-note code {
+    padding: 0.12em 0.38em;
+    color: var(--navy);
+    background: rgba(255, 255, 255, 0.62);
+    border-radius: 4px;
+    font-family:
+        "Cascadia Code",
+        "JetBrains Mono",
+        Consolas,
+        monospace;
+    font-size: 0.88em;
+    font-weight: 700;
+}
+
+html[data-theme="dark"] .technical-note {
+    background: rgba(123, 190, 0, 0.1);
+}
+
+html[data-theme="dark"] .technical-note code {
+    color: var(--green);
+    background: rgba(255, 255, 255, 0.06);
+}
