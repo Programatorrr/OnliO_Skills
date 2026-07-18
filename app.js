@@ -12,9 +12,7 @@ const navigation = $("#main-navigation");
 const themeButton = $("#theme-toggle");
 const themeIcon = $(".theme-icon");
 const themeLabel = $(".theme-label");
-const pragueClock = $("#prague-clock");
-const pragueDate = $("#prague-date");
-const pageTimer = $("#page-timer");
+
 const lightbox = $("#lightbox");
 const lightboxImage = $("#lightbox-image");
 const lightboxCaption = $("#lightbox-caption");
