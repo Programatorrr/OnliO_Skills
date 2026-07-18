@@ -21,6 +21,7 @@ const lightboxCaption = $("#lightbox-caption");
 const lightboxClose = $("#lightbox-close");
 const navLinks = $$(".main-navigation a");
 const answers = $$(".answer-card");
+const backToTop = $("#back-to-top");
 
 /* Theme management */
 const systemTheme = matchMedia("(prefers-color-scheme: dark)").matches
@@ -295,3 +296,25 @@ function openFromHash() {
 
 openFromHash();
 addEventListener("hashchange", openFromHash);
+
+/* Reliable back-to-top navigation */
+backToTop?.addEventListener("click", event => {
+    event.preventDefault();
+
+    const reducedMotion = matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: reducedMotion ? "auto" : "smooth"
+    });
+
+    /* Remove the section hash from the URL */
+    history.replaceState(
+        null,
+        "",
+        `${location.pathname}${location.search}`
+    );
+});
