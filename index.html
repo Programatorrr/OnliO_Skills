@@ -1603,8 +1603,9 @@ sudo puppet cert print &lt;hostname&gt;</code></pre>
                 <h3>Vyčištění SSL stavu agenta</h3>
 
                 <pre><code>sudo systemctl stop puppet
-sudo rm -rf /var/lib/puppet/ssl
-sudo systemctl start puppet
+sudo puppet config print ssldir --section agent
+                    <p>Po ověření cesty jsem odstranil stará lokální SSL data z adresáře agenta.
+                    sudo systemctl start puppet  </p>
 sudo puppet agent -t --waitforcert 60</code></pre>
 
                 <p>
