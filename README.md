@@ -146,3 +146,14 @@ Clone the repository:
 ```bash
 git clone https://github.com/Programatorrr/Onlio_Skills.git
 cd Onlio_Skills
+
+Onlio_Skills/
+├── index.html
+├── styles.css
+├── app.js
+├── README.md
+├── documents/
+│   ├── Pavel_Dikan_FlowCV_Resume.pdf
+│   └── allen-bradley-plc-scada-experience.pdf
+└── images/
+    └── website screenshots and technical photographs
