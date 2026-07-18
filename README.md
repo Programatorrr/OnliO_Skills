@@ -1,40 +1,102 @@
-# Onlio Skills — IT Operations Engineer
+# Pavel Dikan — IT Operations Portfolio
 
-Personal technical portfolio created for the recruitment process for the position **IT Operations Engineer (Linux / DevOps)** at Onlio, a.s.
+Personal technical portfolio prepared for the recruitment process
+for the position **IT Operations Engineer (Linux / DevOps)** at
+Onlio, a.s.
 
-The project presents my experience with Linux administration, infrastructure operations, monitoring, troubleshooting, Kubernetes, GitOps, automation, physical servers, networking and customer environments.
+## Live website
+
+https://programatorrr.github.io/OnliO_Skills/
 
 ## Purpose
 
-The website contains detailed answers to the technical questions received during the recruitment process.
+The website contains detailed answers to eight technical and
+experience-related questions received during the recruitment process.
 
-It also includes:
+It presents examples of my experience with:
 
-- practical Linux administration examples;
-- commands used for troubleshooting;
-- Kubernetes, MicroK8s, Argo CD and K9s experience;
-- a Kotlin and Spring Boot application for Kubernetes workload management;
-- examples of physical server and network infrastructure work;
-- downloadable CV and supporting PLC/SCADA documentation.
+- Linux server administration;
+- infrastructure monitoring and troubleshooting;
+- system and application logs;
+- OpenStack, Ceph, Puppet and Foreman;
+- physical servers and network infrastructure;
+- Kubernetes, MicroK8s, Argo CD, Helm and K9s;
+- Bash, automation and scripting;
+- customer communication and incident escalation.
+
+Questions concerning office attendance, preferred form of cooperation,
+salary expectations and availability are answered separately by e-mail.
+
+## Experience levels
+
+The website distinguishes between different types of experience:
+
+### Professional experience
+
+- Linux and Ubuntu server operations;
+- OpenStack virtual infrastructure;
+- Ceph distributed storage;
+- Puppet and Foreman;
+- Sensu and Uchiwa monitoring;
+- incident diagnostics;
+- physical server hardware;
+- customer infrastructure and communication.
+
+### Laboratory and academic experience
+
+- MicroK8s and Kubernetes;
+- Argo CD and GitOps;
+- Helm;
+- K9s;
+- Kotlin and Spring Boot applications communicating with Kubernetes;
+- Python automation and cloud-metrics processing.
+
+This distinction is used to avoid presenting laboratory projects
+as production experience.
+
+## Featured projects
+
+### TeamCity Cloud Remote Shell Executor
+
+A demonstration application written in Kotlin and Spring Boot.
+It creates temporary Kubernetes executor Pods, runs shell tasks,
+retrieves logs and manages the workload lifecycle.
+
+Repository:
+
+https://github.com/Programatorrr/TeamCity-Cloud-Remote-Shell-Executor
+
+### Predictive Alerting for Cloud Metrics
+
+A laboratory Python pipeline that generates synthetic infrastructure
+metrics, creates time-window features, trains a classification model
+and evaluates the risk of a future incident.
+
+Repository:
+
+https://github.com/Programatorrr/cloud-metrics-incident-prediction
+
+## Documents
+
+The website provides access to:
+
+- my current CV;
+- supporting documentation describing my previous PLC and SCADA
+  experience with Allen-Bradley systems.
 
 ## Visual concept
 
-The visual style of this project was inspired by the publicly accessible main website of **Onlio, a.s.**
+The visual style was inspired by the publicly accessible website
+of Onlio, a.s., including its dark-blue and green colour direction.
 
-The project uses a similar visual direction, including:
+This is an independent candidate portfolio. It is not an official
+website of Onlio, a.s. and does not represent the company.
 
-- dark blue and green colour combinations;
-- large typography;
-- highlighted text elements;
-- light information cards;
-- rounded content sections;
-- simple interactive navigation.
+The HTML, CSS and JavaScript implementation was created specifically
+for this project. No internal or proprietary source code belonging
+to Onlio was used.
 
-This is an independent personal recruitment portfolio. It is not an official Onlio website and does not represent Onlio, a.s.
-
-The HTML, CSS and JavaScript implementation was created specifically for this project. No proprietary source code from Onlio was used.
-
-## Privacy and personal data
+## Privacy
 
 The website does not use:
 
@@ -43,31 +105,32 @@ The website does not use:
 - cookies;
 - registration forms;
 - external databases;
-- automated personal-data collection.
+- automated collection of visitor data.
 
-The published content consists primarily of information and materials voluntarily provided by the applicant for recruitment purposes.
+The published materials are intended only to demonstrate the
+applicant's own experience and projects.
 
-The project is designed not to publish personal data of customers, colleagues or unrelated third parties. Sensitive infrastructure information, credentials, private addresses and access data are not intentionally included.
+Credentials, access tokens and confidential customer information
+are not intentionally included.
 
-This statement describes the technical design of the project and is not a formal legal GDPR audit.
+This description concerns the technical design of the website and
+is not a formal legal GDPR assessment.
 
 ## Main features
 
-- responsive layout for desktop and mobile devices;
-- expandable sections for recruitment questions;
-- light and dark colour themes;
-- active navigation based on the visible section;
-- Prague time and date;
-- time spent on the page;
+- responsive desktop and mobile layout;
+- expandable answers;
+- light and dark themes;
+- active section navigation;
 - image lightbox;
 - downloadable CV;
 - downloadable supporting technical documentation;
-- keyboard-accessible navigation;
+- keyboard-accessible controls;
 - reduced-motion support.
 
 ## Technologies
 
-The project is implemented as a static website using:
+The website is implemented using:
 
 - semantic HTML;
 - modern CSS;
@@ -83,36 +146,3 @@ Clone the repository:
 ```bash
 git clone https://github.com/Programatorrr/Onlio_Skills.git
 cd Onlio_Skills
-
-Onlio_Skills/
-├── index.html
-├── styles.css
-├── app.js
-├── README.md
-│
-├── documents/
-│   ├── allen-bradley-plc-scada-experience.pdf
-│   └── Pavel_Dikan_FlowCV_Resume_2026.pdf
-│
-└── images/
-    ├── argocd-dashboard.jpg
-    ├── cloud-storage-drives.jpg
-    ├── cloud-workplace.jpg
-    ├── customer-network-terminal.jpg
-    ├── datacenter-console.jpg
-    ├── hardware-service.jpg
-    ├── imac-boot-test.jpg
-    ├── imac-repair.jpg
-    ├── infrastructure-lab.jpg
-    ├── k9s-cluster-view.jpg
-    ├── k9s-installation.jpg
-    ├── kubernetes-job-manager.jpg
-    ├── kubernetes-terminal.jpg
-    ├── linux-course-package-management.jpg
-    ├── network-incident.jpg
-    ├── optical-network.jpg
-    ├── remote-executor-sequence.jpg
-    ├── server-hardware-lab.jpg
-    ├── server-mainboard.jpg
-    ├── server-rack.jpg
-    └── xeon-bios.jpg
