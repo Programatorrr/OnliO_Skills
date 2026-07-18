@@ -490,76 +490,200 @@ journalctl -p err -b</code></pre>
     </div>
 </details>
 
-                <!-- Question 3 -->
-                <details class="answer-card" id="q3">
-                    <summary>
-                        <span class="question-number">03</span>
+              <!-- Question 3 -->
+<details class="answer-card" id="q3">
+    <summary>
+        <span class="question-number">03</span>
 
-                        <span class="question-title">
-                            Provoz aplikací, monitoring a analýza logů
-                        </span>
+        <span class="question-title">
+            Provoz služeb, monitoring a řešení incidentů
+        </span>
 
-                        <span class="question-icon" aria-hidden="true">+</span>
-                    </summary>
+        <span class="question-icon" aria-hidden="true">+</span>
+    </summary>
 
-                    <div class="answer-content">
-                        <div class="answer-text">
-                            <p>
-                                Monitoring a prvotní diagnostika patřily mezi
-                                hlavní části mé práce v Cloudinfrastacku.
-                                Monitorovací prostředí upozorňovalo na
-                                nedostupné servery, nefunkční služby,
-                                problémy s databázemi, úložištěm, síťovými
-                                rozhraními nebo systémovými prostředky.
-                            </p>
+    <div class="answer-content">
+        <div class="answer-text">
+            <p>
+                Monitoring a prvotní diagnostika patřily mezi hlavní
+                části mé práce v Cloudinfrastacku. Prostřednictvím
+                monitorovacího prostředí Sensu a Uchiwa jsem reagoval
+                na upozornění týkající se nedostupných serverů,
+                zastavených služeb, zaplněných disků, problémů
+                s databázemi, certifikáty nebo centrální konfigurací.
+            </p>
 
-                            <p>
-                                Po přijetí upozornění jsem nejprve ověřil,
-                                zda jde o skutečný incident, krátkodobý výkyv
-                                nebo následek plánované změny. Poté jsem
-                                porovnal stav monitoringu s reálným stavem
-                                serveru, systémovými logy a dostupností
-                                navazujících služeb.
-                            </p>
+            <p>
+                Po přijetí alertu jsem nejprve ověřil, zda jde
+                o skutečný incident, krátkodobý výkyv nebo následek
+                plánované změny. Následně jsem zkontroloval dostupnost
+                serveru, využití systémových prostředků, stav služby,
+                otevřené porty a související systémové nebo aplikační
+                logy.
+            </p>
 
-                            <p>
-                                Setkával jsem se například s nedostupnými
-                                hosty, zastavenými službami, problémy
-                                síťového spojení, neúspěšnou aplikací
-                                centrální konfigurace, chybami certifikátů,
-                                upozorněními z databází nebo problémy po
-                                výpadku elektrického napájení.
-                            </p>
+            <p>
+                Při problému s diskovým prostorem jsem pomocí
+                <code>df</code> a <code>du</code> nejprve zjistil,
+                který souborový systém nebo adresář je zaplněný.
+                Potom jsem dohledal rychle rostoucí logy, dočasné
+                soubory nebo starší data. Před odstraněním dat jsem
+                vždy ověřil jejich význam a případnou retenční
+                politiku, aby zásah nezpůsobil další problém.
+            </p>
 
-                            <p>
-                                Výsledkem mé analýzy nebylo pouze odstranění
-                                jednotlivé chyby. Důležité bylo také
-                                zkontrolovat, zda nedošlo k širšímu dopadu,
-                                zda jsou funkční závislé systémy a zda
-                                monitoring znovu potvrzuje normální provoz.
-                            </p>
-                        </div>
+            <p>
+                U nefunkční služby nebo démona jsem kontroloval její
+                stav v systemd, poslední chybové záznamy a dostupnost
+                portu. Pokud byl restart bezpečný a odpovídal
+                provoznímu postupu, službu jsem restartoval
+                a následně ověřil nejen stav Active, ale také její
+                skutečnou dostupnost a návrat monitoringu do normálu.
+            </p>
 
-                        <div class="media-grid">
-                            <figure class="media-card media-card-wide">
-                                <!-- Add image: images/network-incident.jpg -->
-                                <img
-                                    src="images/network-incident.jpg"
-                                    alt="Diagnostika nedostupného serveru pomocí síťového testu"
-                                    loading="lazy"
-                                    data-lightbox
-                                >
+            <p>
+                V prostředí spravovaném Puppetem jsem kontroloval
+                průběh Puppet agenta, chyby při aplikování konfigurace
+                a stav SSL certifikátů. Setkal jsem se například
+                se situacemi, kdy agent nemohl navázat komunikaci
+                s Puppet serverem nebo kdy bylo potřeba odstranit
+                neplatný certifikát a vytvořit nový.
+            </p>
+        </div>
 
-                                <figcaption>
-                                    Ověření nedostupnosti hostu během
-                                    incidentu. Síťový test ukazuje ztrátu
-                                    komunikace a odpověď Destination Host
-                                    Unreachable.
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                </details>
+        <!-- Operational command examples -->
+        <div class="command-grid">
+            <article class="command-card">
+                <h3>Zaplněný disk a rostoucí logy</h3>
+
+                <pre><code>df -hT
+du -xhd1 /var | sort -h
+du -xhd1 /var/log | sort -h
+find /var/log -type f -size +500M -ls
+journalctl --disk-usage
+logrotate -d /etc/logrotate.conf</code></pre>
+
+                <p>
+                    Nejprve jsem určil zaplněný filesystem, potom
+                    dohledal největší adresáře a soubory. Konfiguraci
+                    logrotate bylo možné ověřit nejprve v testovacím
+                    režimu bez okamžitého odstranění dat.
+                </p>
+            </article>
+
+            <article class="command-card">
+                <h3>Služby a démoni</h3>
+
+                <pre><code>systemctl status nginx
+systemctl --failed
+journalctl -u nginx -n 100
+journalctl -u nginx --since "30 min ago"
+ss -lntup
+curl -I http://127.0.0.1
+sudo systemctl restart nginx</code></pre>
+
+                <p>
+                    Po restartu jsem ověřil proces, naslouchající port,
+                    lokální odpověď služby a stav v monitorovacím
+                    systému.
+                </p>
+            </article>
+
+            <article class="command-card">
+                <h3>Puppet a SSL certifikáty</h3>
+
+                <pre><code>sudo puppet agent -t
+sudo puppet agent --test --debug
+sudo puppet cert list --all
+sudo puppet cert clean &lt;hostname&gt;</code></pre>
+
+                <p>
+                    Puppet agent jsem spouštěl ručně při kontrole
+                    konfigurace. Pokud byl certifikát hostu neplatný,
+                    bylo možné jej na Puppet serveru vyčistit
+                    a následně nechat host vytvořit nový požadavek.
+                </p>
+            </article>
+
+            <article class="command-card">
+                <h3>Cloudové a databázové komponenty</h3>
+
+                <pre><code>openstack server list
+openstack server show &lt;server-id&gt;
+ceph -s
+ceph osd tree
+mysql -e "SHOW SLAVE STATUS\G"</code></pre>
+
+                <p>
+                    Při širším incidentu jsem ověřoval také stav
+                    virtuálního serveru, Ceph clusteru nebo databázové
+                    replikace, protože chyba služby mohla být pouze
+                    důsledkem problému v jiné vrstvě infrastruktury.
+                </p>
+            </article>
+        </div>
+
+        <div class="answer-text">
+            <p>
+                Důležitou částí řešení incidentu byla také komunikace
+                se zákazníkem. Zákazníkovi nebo kolegům jsem předal,
+                co bylo nedostupné, jaké kontroly jsem provedl,
+                zda byl nalezen pravděpodobný důvod a jaký byl
+                výsledek zásahu. Pokud problém vyžadoval hlubší
+                oprávnění nebo změnu s vyšším rizikem, připravil jsem
+                potřebné technické informace a incident eskaloval
+                zkušenějšímu administrátorovi.
+            </p>
+
+            <p>
+                Incident jsem považoval za vyřešený až po ověření
+                služby z několika úrovní: stav procesu, systémové logy,
+                síťový port, odpověď aplikace a potvrzení monitoringu.
+                Tím jsem omezil situace, kdy služba sice formálně
+                běžela, ale pro zákazníka stále nebyla dostupná.
+            </p>
+        </div>
+
+        <!-- Incident workflow -->
+        <div class="process-flow">
+            <article>
+                <span>1</span>
+                <h3>Alert</h3>
+                <p>
+                    Ověření skutečnosti incidentu, jeho času
+                    a možného dopadu na zákaznické prostředí.
+                </p>
+            </article>
+
+            <article>
+                <span>2</span>
+                <h3>Diagnostika</h3>
+                <p>
+                    Kontrola prostředků, služby, logů, sítě,
+                    certifikátů a souvisejících komponent.
+                </p>
+            </article>
+
+            <article>
+                <span>3</span>
+                <h3>Zásah</h3>
+                <p>
+                    Bezpečné provedení opravy, restartu,
+                    aplikování konfigurace nebo eskalace.
+                </p>
+            </article>
+
+            <article>
+                <span>4</span>
+                <h3>Ověření</h3>
+                <p>
+                    Kontrola služby, portu, logů a návratu
+                    monitoringu do normálního stavu.
+                </p>
+            </article>
+        </div>
+    </div>
+</details>
 
                 <!-- Question 4 -->
                 <details class="answer-card" id="q4">
