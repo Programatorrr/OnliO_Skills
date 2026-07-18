@@ -954,13 +954,13 @@ ceph osd tree</code></pre>
                     </div>
                 </details>
 
-               <!-- Question 5 -->
+          <!-- Question 5 -->
 <details class="answer-card" id="q5">
     <summary>
         <span class="question-number">05</span>
 
         <span class="question-title">
-            Automatizace monitoringu a predikce incidentů
+            Automatizace a skriptování
         </span>
 
         <span class="question-icon" aria-hidden="true">+</span>
@@ -969,163 +969,224 @@ ceph osd tree</code></pre>
     <div class="answer-content">
         <div class="answer-text">
             <p>
-                S automatizací jsem se setkal jak při provozu
-                infrastruktury, tak při práci na vlastních projektech.
-                Zkušenost s monitorovacími alerty mě vedla k vytvoření
-                laboratorního projektu Predictive Alerting for Cloud
-                Metrics, ve kterém jsem se zaměřil na automatické
-                vyhodnocování provozních metrik a včasné rozpoznání
-                zhoršujícího se stavu infrastruktury.
+                Ano, s automatizací a skriptováním mám praktickou
+                zkušenost. Při práci s Linuxovými servery jsem používal
+                Bash příkazy a jednoduché skripty pro opakovatelné
+                kontroly služeb, logů, systémových prostředků
+                a síťové dostupnosti.
             </p>
 
             <p>
-                Projekt simuluje časovou řadu cloudových metrik,
-                konkrétně využití CPU, operační paměti, latenci
-                a chybovost služby. Do dat jsou přidány také postupné
-                degradace a incidenty, například rostoucí zatížení,
-                zvýšená latence nebo prudký nárůst chybovosti.
+                Konkrétním příkladem rozsáhlejší automatizace je můj
+                projekt TeamCity Cloud Remote Shell Executor.
+                Projekt vznikl jako demonstrační aplikace inspirovaná
+                principem dočasných build agentů a řeší automatické
+                spouštění shellových úloh v Kubernetes.
             </p>
 
             <p>
-                Nad těmito daty jsem vytvořil automatizovanou pipeline.
-                Skripty nejprve vygenerují vstupní data, následně je
-                rozdělí do časových oken a z každého okna vypočítají
-                statistické charakteristiky. Systém například sleduje
-                průměr, minimum, maximum, směrodatnou odchylku,
-                poslední hodnotu a změnu metriky v čase.
-            </p>
-
-            <p>
-                Model pracuje s předchozími třiceti minutami provozu
-                a vyhodnocuje, zda během následujících deseti minut
-                pravděpodobně nastane incident. Pro zachování časové
-                návaznosti jsou trénovací a testovací data rozdělena
-                chronologicky bez náhodného promíchání.
-            </p>
-
-            <p>
-                Pro klasifikaci jsem vytvořil pipeline využívající
-                standardizaci vstupních hodnot a model Random Forest.
-                Po dokončení trénování se model automaticky uloží
-                a navazující část projektu provede jeho vyhodnocení
-                a vytvoří grafické výstupy s výslednými rizikovými
-                skóre.
+                Bez této aplikace by bylo potřeba pro každou úlohu
+                ručně připravit Kubernetes manifest, vytvořit Pod,
+                kontrolovat jeho stav, načítat logy a po dokončení
+                prostředek odstranit.
             </p>
         </div>
 
-        <!-- Automated pipeline -->
+        <!-- Manual workflow before automation -->
+        <div class="command-grid">
+            <article class="command-card">
+                <h3>Ruční postup</h3>
+
+                <pre><code>kubectl apply -f worker-pod.yaml
+kubectl get pods
+kubectl describe pod worker-pod
+kubectl logs worker-pod
+kubectl delete pod worker-pod</code></pre>
+
+                <p>
+                    Každou úlohu by bylo nutné připravit, spustit,
+                    kontrolovat a odstranit pomocí několika samostatných
+                    příkazů.
+                </p>
+            </article>
+
+            <article class="command-card">
+                <h3>Automatizovaný postup</h3>
+
+                <pre><code>POST /api/jobs/start
+GET  /api/jobs/list
+GET  /api/jobs/{id}/logs
+DELETE /api/jobs/{id}</code></pre>
+
+                <p>
+                    Webová aplikace a backend převzaly vytváření Podu,
+                    kontrolu jeho stavu, načtení logů a odstranění
+                    prostředků.
+                </p>
+            </article>
+        </div>
+
+        <div class="answer-text">
+            <p>
+                Ve webovém rozhraní uživatel zadá identifikátor úlohy,
+                požadovaný počet CPU a shellový skript. Backend vytvořený
+                v Kotlinu a Spring Bootu vstup zkontroluje a přes
+                Kubernetes API automaticky vytvoří samostatný dočasný
+                Executor Pod.
+            </p>
+
+            <p>
+                Aplikace následně pravidelně načítá stav Podu a převádí
+                Kubernetes stavy na jednodušší uživatelské informace,
+                například Queued, Running, Finished nebo Failed.
+                Uživatel může zobrazit logy úlohy nebo Pod ukončit
+                přímo z webového rozhraní.
+            </p>
+        </div>
+
+        <!-- Automation workflow -->
         <div class="process-flow">
             <article>
                 <span>1</span>
 
-                <h3>Generování metrik</h3>
+                <h3>Zadání úlohy</h3>
 
                 <p>
-                    Skript vytvoří časovou řadu CPU, RAM, latence,
-                    chybovosti a simulovaných incidentů.
+                    Uživatel zadá ID, požadované CPU
+                    a shellový skript.
                 </p>
             </article>
 
             <article>
                 <span>2</span>
 
-                <h3>Zpracování dat</h3>
+                <h3>Vytvoření Podu</h3>
 
                 <p>
-                    Data jsou rozdělena do časových oken a převedena
-                    na statistické vlastnosti použitelné pro model.
+                    Backend připraví definici úlohy
+                    a vytvoří dočasný Executor Pod.
                 </p>
             </article>
 
             <article>
                 <span>3</span>
 
-                <h3>Trénování modelu</h3>
+                <h3>Sledování stavu</h3>
 
                 <p>
-                    Model se učí na starší části časové řady
-                    a ověřuje se na pozdějších datech.
+                    Aplikace načítá stav Podu
+                    a zpřístupňuje jeho logy.
                 </p>
             </article>
 
             <article>
                 <span>4</span>
 
-                <h3>Vyhodnocení rizika</h3>
+                <h3>Ukončení úlohy</h3>
 
                 <p>
-                    Pipeline uloží model, vyhodnotí predikce
-                    a vytvoří grafické výstupy.
+                    Po dokončení lze dočasný Pod
+                    automaticky nebo ručně odstranit.
                 </p>
             </article>
+        </div>
+
+        <!-- Application screenshot -->
+        <div class="media-grid">
+            <figure class="media-card media-card-wide">
+                <img
+                    src="images/kubernetes-job-manager.jpg"
+                    alt="Webové rozhraní aplikace Kubernetes Job Manager"
+                    loading="lazy"
+                    data-lightbox
+                >
+
+                <figcaption>
+                    Webové rozhraní automatizuje vytvoření dočasné
+                    Kubernetes úlohy, sledování jejího stavu,
+                    načítání logů a odstranění Executor Podu.
+                </figcaption>
+            </figure>
         </div>
 
         <div class="answer-text">
             <p>
-                Celé prostředí jsem zabalil do Dockeru a jednotlivé
-                kroky lze spustit opakovatelně jedním příkazem.
-                Díky tomu není nutné ručně instalovat jednotlivé
-                knihovny ani postupně spouštět každý skript.
+                Automatizace tím nahradila opakované ruční vytváření
+                manifestů a zadávání několika příkazů kubectl.
+                Celý proces je jednotný, opakovatelný a pro uživatele
+                přehlednější.
+            </p>
+
+            <p>
+                Projekt mi zároveň pomohl prakticky pochopit práci
+                s Kubernetes API, životní cyklus Podu, přidělování
+                prostředků, zpracování stavů, čtení logů a bezpečné
+                odstraňování dočasných workloadů.
             </p>
         </div>
 
-        <!-- Command examples -->
-        <div class="command-grid">
-            <article class="command-card">
-                <h3>Spuštění celé pipeline</h3>
+        <div class="result-box">
+            <span class="result-icon" aria-hidden="true">✓</span>
 
-                <pre><code>docker-compose up --build</code></pre>
+            <div>
+                <h3>Přínos automatizace</h3>
 
                 <p>
-                    Docker sestaví prostředí a spustí zpracování dat,
-                    trénování i vyhodnocení ve stejném reprodukovatelném
-                    prostředí.
+                    Několik ručních kroků bylo nahrazeno jedním
+                    řízeným procesem od zadání úlohy až po zobrazení
+                    výsledku a odstranění dočasného Podu.
                 </p>
-            </article>
-
-            <article class="command-card">
-                <h3>Automatické testování</h3>
-
-                <pre><code>python -m unittest discover tests</code></pre>
-
-                <p>
-                    Unit testy ověřují důležitou logiku zpracování
-                    časových oken a přípravy dat.
-                </p>
-            </article>
+            </div>
         </div>
 
-        <div class="answer-text">
-            <p>
-                Součástí projektu je také automatické spouštění testů
-                prostřednictvím GitHub Actions při změnách v repozitáři.
-                Automatizace mi tak umožnila opakovat celý proces
-                stejným způsobem, rychle odhalit chybu v datové pipeline
-                a ověřit, že změna kódu nepoškodila předchozí funkčnost.
-            </p>
-
-            <p>
-                Projekt používá syntetická data a není prezentován
-                jako produkční monitorovací systém. Jeho cílem bylo
-                prakticky propojit mé zkušenosti s monitoringem
-                infrastruktury, Python skriptováním, Dockerem,
-                automatickým testováním a vyhodnocováním provozních
-                metrik.
-            </p>
-
-            <p>
-                Druhým příkladem automatizace je můj projekt Remote
-                Shell Executor popsaný v předchozí části. V něm jsem
-                automatizoval vytváření dočasných Kubernetes Podů,
-                spouštění shellových úloh, čtení logů a odstraňování
-                prostředků po dokončení práce.
-            </p>
-        </div>
-
-        <!-- GitHub project -->
+        <!-- Main GitHub project -->
         <aside class="project-callout">
             <p class="project-label">
-                GitHub projekt
+                Hlavní příklad automatizace
+            </p>
+
+            <h3>
+                TeamCity Cloud Remote Shell Executor
+            </h3>
+
+            <p>
+                Demonstrační aplikace v Kotlinu a Spring Bootu,
+                která automatizuje vytváření dočasných Kubernetes
+                executorů, spouštění shellových úloh, kontrolu stavů
+                a práci s logy.
+            </p>
+
+            <a
+                href="https://github.com/Programatorrr/TeamCity-Cloud-Remote-Shell-Executor"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Otevřít repozitář
+            </a>
+        </aside>
+
+        <div class="answer-text">
+            <p>
+                Dalším laboratorním příkladem je projekt Predictive
+                Alerting for Cloud Metrics. V Pythonu jsem vytvořil
+                automatizovanou pipeline, která generuje syntetické
+                provozní metriky, připravuje časová okna, trénuje
+                klasifikační model a vyhodnocuje riziko budoucího
+                incidentu.
+            </p>
+
+            <p>
+                Projekt je spustitelný v Dockeru a obsahuje automatické
+                testy. Slouží jako praktické propojení monitoringu,
+                Python skriptování, zpracování dat a reprodukovatelného
+                spouštění jednotlivých kroků.
+            </p>
+        </div>
+
+        <!-- Secondary GitHub project -->
+        <aside class="project-callout project-callout-secondary">
+            <p class="project-label">
+                Doplňující laboratorní projekt
             </p>
 
             <h3>
@@ -1133,9 +1194,9 @@ ceph osd tree</code></pre>
             </h3>
 
             <p>
-                Automatizovaná Python pipeline pro simulaci cloudových
-                metrik, přípravu časových oken, trénování klasifikačního
-                modelu, testování a vyhodnocení rizika budoucího incidentu.
+                Python pipeline pro simulaci cloudových metrik,
+                automatickou přípravu dat, testování a vyhodnocování
+                rizika incidentu.
             </p>
 
             <a
