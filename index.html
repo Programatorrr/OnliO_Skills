@@ -701,228 +701,193 @@ ceph osd tree</code></pre>
     </div>
 </details>
 
-                <!-- Question 4 -->
-                <details class="answer-card" id="q4">
-                    <summary>
-                        <span class="question-number">04</span>
+               <!-- Question 4 -->
+<details class="answer-card" id="q4">
+    <summary>
+        <span class="question-number">04</span>
 
-                        <span class="question-title">
-                            Praktické zkušenosti s technologiemi a nástroji
-                        </span>
+        <span class="question-title">
+            Praktické zkušenosti s technologiemi a nástroji
+        </span>
 
-                        <span class="question-icon" aria-hidden="true">+</span>
-                    </summary>
+        <span class="question-icon" aria-hidden="true">+</span>
+    </summary>
 
-                    <div class="answer-content">
-                        <div class="answer-text">
-    <p>
-        Moje praktické zkušenosti propojují provoz Linuxových serverů,
-        cloudovou infrastrukturu, Kubernetes a vývoj nástrojů, které
-        usnadňují každodenní správu prostředí.
-    </p>
+    <div class="answer-content">
+        <div class="answer-text">
+            <p>
+                Moje zkušenosti rozlišuji na technologie používané
+                v produkčním provozu a nástroje, se kterými pracuji
+                ve vlastním laboratorním prostředí a při přípravě
+                diplomové práce.
+            </p>
 
-    <p>
-        V produkčním prostředí jsem pracoval s Ubuntu servery,
-        virtuálními instancemi v OpenStacku, distribuovaným úložištěm
-        Ceph a centrální správou konfigurace pomocí Puppetu a Foremanu.
-        Kontroloval jsem stav serverů a služeb, reagoval na monitoring,
-        analyzoval logy a ověřoval stav infrastruktury po provedeném zásahu.
-    </p>
+            <p>
+                V produkčním prostředí jsem pracoval především
+                s Linuxovými servery Ubuntu, virtuálními instancemi
+                v OpenStacku, distribuovaným úložištěm Ceph
+                a centrální správou konfigurace pomocí Puppetu
+                a Foremanu.
+            </p>
 
-    <p>
-        Rozsáhlejší praktickou zkušenost s Kubernetes jsem získal během
-        přípravy diplomové práce. Na Ubuntu serveru jsem vytvořil
-        MicroK8s cluster, nainstaloval Argo CD, propojil jej s GitHub
-        repozitářem a nasadil demonstrační aplikaci pomocí Helm chartu.
-        Pracoval jsem s Deploymenty, Pody, Services, ReplicaSety,
-        namespaces, YAML manifesty, logy a událostmi v clusteru.
-    </p>
-<div class="media-grid media-grid-two">
-    <figure class="media-card">
-        <img
-            src="images/kubernetes-terminal.jpg"
-            alt="Ověření Kubernetes Deploymentu a Argo CD synchronizace"
-            loading="lazy"
-            data-lightbox
-        >
+            <p>
+                Pro kontrolu provozu jsem používal Sensu a Uchiwa.
+                Prostřednictvím SSH a Linuxových nástrojů jsem ověřoval
+                stav serverů, systémových služeb, procesů, disků,
+                síťové dostupnosti a logů.
+            </p>
+        </div>
 
-        <figcaption>
-            Ověření stavu Deploymentu, Podů, historie synchronizací
-            a automatické nápravy konfigurace v MicroK8s.
-        </figcaption>
-    </figure>
+        <!-- Production and laboratory technologies -->
+        <div class="focus-grid">
+            <article>
+                <h3>Linux a cloud</h3>
 
-    <figure class="media-card">
-        <img
-            src="images/argocd-dashboard.jpg"
-            alt="Aplikace nginx zobrazená v Argo CD"
-            loading="lazy"
-            data-lightbox
-        >
+                <p>
+                    Ubuntu, SSH, systemd, OpenStack, Ceph
+                    a práce s fyzickými servery.
+                </p>
+            </article>
 
-        <figcaption>
-            Argo CD zobrazuje aplikaci jako Healthy a Synced, včetně
-            vztahů mezi Service, Deploymentem, ReplicaSetem a Pody.
-        </figcaption>
-    </figure>
-</div>
-    <p>
-        Prakticky jsem ověřoval také princip GitOps. Požadovaný stav
-        aplikace byl uložen v Git repozitáři a Argo CD automaticky
-        porovnávalo tento stav se skutečným stavem clusteru. Při změně
-        počtu replik nebo při ruční odchylce v clusteru dokázalo změnu
-        detekovat, provést synchronizaci a pomocí self-healingu obnovit
-        správný počet běžících Podů.
-    </p>
+            <article>
+                <h3>Monitoring</h3>
 
-    <p>
-        Pro pohodlnější kontrolu clusteru jsem nainstaloval a používal
-        také K9s. Pomocí tohoto nástroje jsem sledoval stav Podů,
-        jejich restarty, IP adresy, přiřazení k nodům a jednotlivé
-        provozní stavy, například Running, Pending, Completed nebo Error.
-        K9s mi umožnil rychleji se orientovat v clusteru bez nutnosti
-        opakovaně zadávat jednotlivé příkazy kubectl.
-    </p>
+                <p>
+                    Sensu, Uchiwa, systémové a aplikační logy,
+                    kontrola služeb a prvotní diagnostika incidentů.
+                </p>
+            </article>
 
-    <p>
-        Při instalaci K9s jsem narazil také na praktický problém.
-        Verze nainstalovaná prostřednictvím Snapu nebyla správně dostupná
-        v shellu, proto jsem nefunkční instalaci odstranil, stáhl aktuální
-        binární verzi z GitHub releases, rozbalil ji a umístil do systémové
-        cesty. Následně jsem ověřil verzi aplikace a připojení ke kontextu
-        MicroK8s.
-    </p>
-<div class="media-grid media-grid-two">
-    <figure class="media-card">
-        <img
-            src="images/k9s-installation.jpg"
-            alt="Instalace aktuální binární verze K9s"
-            loading="lazy"
-            data-lightbox
-        >
+            <article>
+                <h3>Configuration management</h3>
 
-        <figcaption>
-            Řešení problému s nefunkční Snap instalací K9s.
-            Po odstranění původního balíčku jsem stáhl aktuální
-            binární verzi, umístil ji do systémové cesty
-            a ověřil úspěšnou instalaci.
-        </figcaption>
-    </figure>
+                <p>
+                    Puppet a Foreman pro centrální konfiguraci,
+                    kontrolu agentů a správu certifikátů.
+                </p>
+            </article>
 
-    <figure class="media-card">
-        <img
-            src="images/k9s-cluster-view.jpg"
-            alt="Správa MicroK8s clusteru prostřednictvím K9s"
-            loading="lazy"
-            data-lightbox
-        >
+            <article>
+                <h3>Kubernetes a GitOps</h3>
 
-        <figcaption>
-            K9s připojené ke kontextu MicroK8s. V rozhraní jsem
-            sledoval Pody, jejich restarty, IP adresy, přiřazení
-            k nodům a provozní stavy workloadů.
-        </figcaption>
-    </figure>
-</div>
-    <p>
-        Další zkušenost vychází z mého vlastního projektu
-        TeamCity Cloud Remote Shell Executor. Jde o demonstrační aplikaci
-        inspirovanou principem dočasných build agentů. Vytvořil jsem
-        backend v Kotlinu a Spring Bootu, který komunikuje s Kubernetes
-        prostřednictvím klientské knihovny Fabric8.
-    </p>
+                <p>
+                    MicroK8s, Argo CD, Helm, K9s, YAML manifesty
+                    a GitHub repozitáře.
+                </p>
+            </article>
+        </div>
 
-    <p>
-        Uživatel zadá prostřednictvím webového rozhraní identifikátor
-        úlohy, požadované CPU a shellový skript. Backend vstup ověří
-        a následně v Kubernetes vytvoří samostatný dočasný Executor Pod.
-        Aplikace potom umožňuje sledovat stav úlohy, zobrazit její logy
-        a ukončit nebo odstranit Pod po dokončení práce.
-    </p>
+        <div class="answer-text">
+            <p>
+                Praktickou laboratorní zkušenost s Kubernetes jsem
+                získal při přípravě diplomové práce. Na Ubuntu serveru
+                jsem vytvořil MicroK8s cluster, nainstaloval Argo CD,
+                propojil jej s GitHub repozitářem a nasadil
+                demonstrační aplikaci pomocí Helm chartu.
+            </p>
 
-    <p>
-        Ve webovém rozhraní jsem vytvořil také přehled běžících
-        a dokončených úloh. Kubernetes stavy jsem mapoval na jednodušší
-        uživatelské stavy, například Queued, Failed nebo Finished.
-        Díky tomu není pro základní správu úloh nutné pracovat přímo
-        s příkazovou řádkou nebo Kubernetes API.
-    </p>
-<div class="media-grid">
-    <figure class="media-card media-card-wide">
-        <img
-            src="images/kubernetes-job-manager.jpg"
-            alt="Webové rozhraní aplikace Kubernetes Job Manager"
-            loading="lazy"
-            data-lightbox
-        >
+            <p>
+                Pracoval jsem s objekty Deployment, Pod, Service,
+                ReplicaSet a Namespace. Pomocí příkazů
+                <code>kubectl</code> jsem kontroloval stav workloadů,
+                logy, události a průběh nasazení.
+            </p>
+        </div>
 
-        <figcaption>
-            Webové rozhraní vytvořené pro správu dočasných Kubernetes
-            úloh. Uživatel může zadat shellový skript a požadované CPU,
-            vytvořit Executor Pod, sledovat stav úlohy, zobrazit logy
-            nebo Pod ukončit.
-        </figcaption>
-    </figure>
-</div>
-    <p>
-        Projekt mi pomohl prakticky pochopit životní cyklus Podu,
-        vytváření zdrojů přes Kubernetes API, přidělování prostředků,
-        čtení logů, zpracování stavů a odstraňování dočasných workloadů.
-        Současně jsem si ověřil propojení webové aplikace, backendové
-        služby a Kubernetes clusteru.
-    </p>
-<div class="media-grid">
-    <figure class="media-card media-card-wide">
-        <img
-            src="images/remote-executor-sequence.jpg"
-            alt="Sekvenční diagram aplikace TeamCity Cloud Remote Shell Executor"
-            loading="lazy"
-            data-lightbox
-        >
+        <div class="command-grid">
+            <article class="command-card">
+                <h3>Kontrola Kubernetes clusteru</h3>
 
-        <figcaption>
-            Sekvenční diagram znázorňuje cestu požadavku od uživatele
-            přes webové rozhraní a Spring Boot API ke Kubernetes
-            clusteru. Backend vytvoří Executor Pod, načítá jeho stav
-            a zpřístupňuje uživateli výsledné logy.
-        </figcaption>
-    </figure>
-</div>
-    <p>
-        Znalosti Kubernetes si dále systematicky rozšiřuji studiem
-        odborné literatury, například knihy Kubernetes: Up &amp; Running.
-        Zaměřuji se zejména na fungování Services, ClusterIP,
-        kube-proxy, síťové komunikace mezi Pody, scheduling,
-        health checks a provoz aplikací v clusteru. Teoretické principy
-        se snažím vždy ověřit také prakticky ve vlastním laboratorním
-        prostředí.
-    </p>
-</div>
+                <pre><code>kubectl get nodes
+kubectl get pods -A
+kubectl get deployments -A
+kubectl describe pod &lt;pod-name&gt;
+kubectl logs &lt;pod-name&gt;</code></pre>
 
-    
+                <p>
+                    Kontrola nodů, workloadů, událostí a logů
+                    při nasazování nebo diagnostice aplikace.
+                </p>
+            </article>
 
-                        <aside class="project-callout">
-                            <p class="project-label">GitHub projekt</p>
+            <article class="command-card">
+                <h3>Práce s Helm a Argo CD</h3>
 
-                            <h3>TeamCity Cloud Remote Shell Executor</h3>
+                <pre><code>helm list -A
+helm upgrade --install &lt;release&gt; &lt;chart&gt;
+kubectl get applications -n argocd</code></pre>
 
-                            <p>
-                                Projekt demonstruje automatické vytváření
-                                dočasných vzdálených executorů v Kubernetes
-                                a řízení celého životního cyklu úlohy přes
-                                backendové API.
-                            </p>
+                <p>
+                    Nasazení aplikace pomocí Helm chartu
+                    a ověření jejího stavu v Argo CD.
+                </p>
+            </article>
+        </div>
 
-                            <a
-                                href="https://github.com/Programatorrr/TeamCity-Cloud-Remote-Shell-Executor"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Otevřít repozitář
-                            </a>
-                        </aside>
-                    </div>
-                </details>
+        <div class="answer-text">
+            <p>
+                V rámci GitOps testu byl požadovaný stav aplikace uložen
+                v Git repozitáři. Argo CD porovnávalo deklarovaný stav
+                se skutečným stavem clusteru a při ruční změně počtu
+                replik dokázalo odchylku rozpoznat a pomocí self-healingu
+                obnovit správnou konfiguraci.
+            </p>
+
+            <p>
+                Pro rychlou orientaci v clusteru jsem používal také K9s,
+                kde jsem sledoval Pody, jejich restarty, IP adresy,
+                přiřazení k nodům a stavy Running, Pending, Completed
+                nebo Error.
+            </p>
+        </div>
+
+        <!-- Kubernetes and GitOps screenshots -->
+        <div class="media-grid media-grid-two">
+            <figure class="media-card">
+                <img
+                    src="images/argocd-dashboard.jpg"
+                    alt="Aplikace spravovaná prostřednictvím Argo CD"
+                    loading="lazy"
+                    data-lightbox
+                >
+
+                <figcaption>
+                    Argo CD zobrazuje nasazenou aplikaci, její stav
+                    Healthy a Synced a vztahy mezi Kubernetes objekty.
+                </figcaption>
+            </figure>
+
+            <figure class="media-card">
+                <img
+                    src="images/k9s-cluster-view.jpg"
+                    alt="Kontrola MicroK8s clusteru prostřednictvím K9s"
+                    loading="lazy"
+                    data-lightbox
+                >
+
+                <figcaption>
+                    K9s připojené k MicroK8s clusteru. Kontrola Podů,
+                    restartů, nodů, IP adres a provozních stavů.
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="result-box">
+            <span class="result-icon" aria-hidden="true">✓</span>
+
+            <div>
+                <h3>Úroveň zkušeností</h3>
+
+                <p>
+                    Linux, OpenStack, Ceph, Puppet a monitoring vycházejí
+                    z mé pracovní zkušenosti. Kubernetes, Argo CD, Helm
+                    a K9s jsem používal ve vlastním laboratorním prostředí
+                    a při přípravě diplomové práce.
+                </p>
+            </div>
+        </div>
+    </div>
+</details>
 
           <!-- Question 5 -->
 <details class="answer-card" id="q5">
