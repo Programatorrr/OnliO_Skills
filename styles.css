@@ -503,14 +503,15 @@ html[data-theme="dark"] .developer-credit__icon {
 .hero {
     display: grid;
     min-height: calc(100vh - var(--header-height));
-    padding-block: clamp(80px, 10vw, 150px);
+    padding-block: clamp(72px, 9vw, 130px);
     align-items: center;
-    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
-    gap: clamp(50px, 8vw, 110px);
+    grid-template-columns: minmax(0, 1fr);
 }
 
 .hero-content {
     position: relative;
+    width: 100%;
+    max-width: 1080px;
 }
 
 .hero h1 {
@@ -671,37 +672,8 @@ html[data-theme="dark"] .button-cv:hover {
     font-size: 1.14rem;
 }
 
-.hero-card {
-    position: relative;
-    padding: clamp(32px, 4vw, 54px);
-    overflow: hidden;
-    background: var(--surface);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-}
 
-.hero-card::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 7px;
-    height: 42%;
-    content: "";
-    background: var(--green);
-}
 
-.hero-card::after {
-    position: absolute;
-    right: -55px;
-    bottom: -55px;
-    width: 150px;
-    height: 150px;
-    content: "";
-    border: 24px solid rgba(123, 190, 0, 0.14);
-    border-radius: 50%;
-}
-
-.hero-card-label,
 .project-label {
     margin-bottom: 8px;
     color: var(--green-dark);
@@ -711,39 +683,7 @@ html[data-theme="dark"] .button-cv:hover {
     text-transform: uppercase;
 }
 
-.hero-card h2 {
-    margin-bottom: 22px;
-    font-size: clamp(1.8rem, 3vw, 2.7rem);
-}
 
-.hero-card > p:not(.hero-card-label) {
-    color: var(--text-soft);
-}
-
-.profile-facts {
-    display: grid;
-    margin: 32px 0 0;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-}
-
-.profile-facts div {
-    padding-top: 15px;
-    border-top: 1px solid var(--border);
-}
-
-.profile-facts dt {
-    color: var(--text-soft);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.profile-facts dd {
-    margin: 4px 0 0;
-    color: var(--text);
-    font-weight: 800;
-}
 
 /* =========================
    Introduction
